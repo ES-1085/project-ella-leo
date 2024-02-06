@@ -18,9 +18,14 @@ library(readr)
 ## 2. Data
 
 ```{r load-data}
-youth_risk <- read_csv("data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240202.csv")
-View(youth_risk)
+youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240202.csv")
+ View(youth_risk)
 
+```
+
+```{r}
+new_youth_risk_df <- youth_risk %>% 
+  select("Topic", "Subtopic", "ShortQuestionText", "YEAR", "LocationAbbr", "Greater_Risk_Question", "Description", "Lesser_Risk_Question", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
 ```
 
 
