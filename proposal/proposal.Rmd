@@ -18,8 +18,8 @@ library(readr)
 ## 2. Data
 
 ```{r load-data}
-youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240202.csv")
- View(youth_risk)
+youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240207.csv")
+#View(youth_risk)
 
 ```
 
