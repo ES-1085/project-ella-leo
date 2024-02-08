@@ -32,7 +32,7 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 
 ``` r
 new_youth_risk_df <- youth_risk %>% 
-  select("Topic", "Subtopic", "ShortQuestionText", "YEAR", "LocationAbbr", "Greater_Risk_Question", "Description", "Lesser_Risk_Question", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
+  select("YEAR", "LocationAbbr", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Question", "Description", "Greater_Risk_Data_Value", "Greater_Risk_Low_Confidence_Limit", "Greater_Risk_High_Confidence_Limit",  "Lesser_Risk_Question", "Lesser_Risk_Data_Value", "Lesser_Risk_Low_Confidence_Limit", "Lesser_Risk_High_Confidence_Limit", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
 ```
 
 ## 3. Ethics review
