@@ -19,18 +19,23 @@ library(readr)
 
 ```{r load-data}
 youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240207.csv")
-#View(youth_risk)
-
-# unique(new_youth_risk_df$Topic)
-# unique(new_youth_risk_df$Subtopic)
+# View(youth_risk)
 
 ```
 
 ```{r}
 new_youth_risk_df <- youth_risk %>% 
-  select("YEAR", "LocationAbbr", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Question", "Description", "Greater_Risk_Data_Value", "Greater_Risk_Low_Confidence_Limit", "Greater_Risk_High_Confidence_Limit",  "Lesser_Risk_Question", "Lesser_Risk_Data_Value", "Lesser_Risk_Low_Confidence_Limit", "Lesser_Risk_High_Confidence_Limit", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
+  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
 ```
 
+```{r}
+new_youth_risk_df %>%
+  filter(Subtopic == "Milk") %>%
+  group_by(ShortQuestionText) %>%
+  mutate(Greater_Risk_Data_Value = round(Greater_Risk_Data_Value, digits = 0)) %>%
+  arrange(desc(Greater_Risk_Data_Value))
+  
+```
 
 
 ## 3. Ethics review
