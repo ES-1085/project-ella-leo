@@ -28,6 +28,9 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 
 ``` r
 #View(youth_risk)
+
+# unique(new_youth_risk_df$Topic)
+# unique(new_youth_risk_df$Subtopic)
 ```
 
 ``` r
