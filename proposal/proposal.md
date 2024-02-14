@@ -66,3 +66,13 @@ new_youth_risk_df %>%
 ## 3. Ethics review
 
 ## 4. Data analysis plan
+Ideas
+first:
+Distribution in data gender, race, grade(see how many males vs. females, etc.)
+then:
+Look at the correlation between tobacco use and physical activity + asthma
+Tobacco use vs drug/alcohol use
+Sex before 13 vs current sexual activity + demographics
+Initiation of alcohol use compared to current alcohol use + demographics
+Initiation of marijuana use vs current marijuana use + demographics
+
