@@ -7,7 +7,14 @@ using the following format.
 
 ## name of data file
 
-- `variable1`: Description of variable 1
-- `variable2`: Description of variable 2
-- `variable3`: Description of variable 3
-- ...
+- `Year`: Year the data is from (either 2015 or 2017)
+- `Subtopic`: Grouping of short question text by topic  
+- `ShortQuestionText`: shorted text of full question
+- `Greater_Risk_Data_Value`: percentage of respondes who answered yes to short question text 
+- `Lesser_Risk_Data_Value`: percentage of respondes who answered no to short question text 
+- `Sample_Size`: ... answer later
+- `Sex`: Gender of respondent
+- `Race`: Race of respondent
+- `Grade`: Grade of respondent
+- `SexualIndentity`: Sexual orientation of respondents
+- `SexOfSexualContacts`: sex of respondents sexual contacts
