@@ -73,6 +73,11 @@ new_youth_risk_df <- youth_risk %>%
 ```
 
 ``` r
+# new_youth_risk_df %>%
+#   filter(Subtopic != c("Suicide-Related Behaviors", "Fruit and fruit juices", "Milk", "Obesity and Overweight", "Sleep")) 
+```
+
+``` r
 new_youth_risk_df %>%
   filter(Subtopic == "Milk") %>%
   group_by(ShortQuestionText) %>%
@@ -100,14 +105,46 @@ new_youth_risk_df %>%
     ## #   Sex <chr>, Race <chr>, Grade <chr>, SexualIdentity <chr>,
     ## #   SexOfSexualContacts <chr>
 
+``` r
+new_youth_risk_df %>%
+  filter(Subtopic == "Milk") %>%
+  group_by(ShortQuestionText, Race) %>%
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
+  arrange(desc(Greater_Risk_Data_Value)) %>%
+  filter(Race != "Total")
+```
+
+    ## `summarise()` has grouped output by 'ShortQuestionText'. You can override using
+    ## the `.groups` argument.
+
+    ## # A tibble: 28 × 3
+    ## # Groups:   ShortQuestionText [4]
+    ##    ShortQuestionText          Race                        Greater_Risk_Data_Va…¹
+    ##    <chr>                      <chr>                                        <dbl>
+    ##  1 Milk drinking >= 3 glasses Asian                                           93
+    ##  2 Milk drinking >= 3 glasses Black or African American                       91
+    ##  3 Milk drinking >= 3 glasses Multiple Race                                   91
+    ##  4 Milk drinking >= 3 glasses White                                           90
+    ##  5 Milk drinking >= 3 glasses Hispanic or Latino                              89
+    ##  6 Milk drinking >= 3 glasses American Indian or Alaska …                     88
+    ##  7 Milk drinking >= 2 glasses Asian                                           81
+    ##  8 Milk drinking >= 2 glasses Multiple Race                                   79
+    ##  9 Milk drinking >= 2 glasses Black or African American                       78
+    ## 10 Milk drinking >= 2 glasses Hispanic or Latino                              78
+    ## # ℹ 18 more rows
+    ## # ℹ abbreviated name: ¹​Greater_Risk_Data_Value
+
 ## 3. Ethics review
 
 I’m not actually sure how to do this section.
 
 ## 4. Data analysis plan
+<<<<<<< HEAD
 
 Distribution in data gender, race, grade(see how many males vs. females,
 etc.) then: then: Look at the correlation between tobacco use and
 physical activity + asthma Tobacco use vs drug/alcohol use Initiation of
 alcohol use compared to current alcohol use + demographics Initiation of
 marijuana use vs current marijuana use + demographics
+=======
+>>>>>>> 974b455a43da97ebaad19eda0c1c365e500db5f7
