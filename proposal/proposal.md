@@ -1,6 +1,6 @@
 Project proposal
 ================
-Team name
+Ella and Leo
 
 ``` r
 library(tidyverse)
@@ -45,8 +45,6 @@ data:
 4.  Are students who use tobacco more likely to use alcohol or
     marijuana?
 
-Add– why did we choose to look at this data set?
-
 ## 2. Data
 
 ``` r
@@ -71,6 +69,25 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 new_youth_risk_df <- youth_risk %>% 
   select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
 ```
+
+``` r
+glimpse(new_youth_risk_df)
+```
+
+    ## Rows: 188,760
+    ## Columns: 12
+    ## $ YEAR                    <dbl> 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017…
+    ## $ Topic                   <chr> "Unintentional Injuries and Violence", "Uninte…
+    ## $ Subtopic                <chr> "Behaviors that Contribute to Unintentional In…
+    ## $ ShortQuestionText       <chr> "Drinking and driving", "Drinking and driving"…
+    ## $ Greater_Risk_Data_Value <dbl> 4.2920, 5.4859, 10.3536, 10.4129, 10.3849, 0.6…
+    ## $ Lesser_Risk_Data_Value  <dbl> 95.7080, 94.5141, 89.6464, 89.5871, 89.6151, 9…
+    ## $ Sample_Size             <dbl> 5138, 2469, 193, 230, 423, 1824, 4451, 137, 34…
+    ## $ Sex                     <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ Race                    <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ Grade                   <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ SexualIdentity          <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ SexOfSexualContacts     <chr> "Total", "Opposite sex only", "Same sex only",…
 
 ``` r
 # new_youth_risk_df %>%
@@ -139,12 +156,28 @@ new_youth_risk_df %>%
 I’m not actually sure how to do this section.
 
 ## 4. Data analysis plan
-<<<<<<< HEAD
 
-Distribution in data gender, race, grade(see how many males vs. females,
-etc.) then: then: Look at the correlation between tobacco use and
-physical activity + asthma Tobacco use vs drug/alcohol use Initiation of
-alcohol use compared to current alcohol use + demographics Initiation of
-marijuana use vs current marijuana use + demographics
-=======
->>>>>>> 974b455a43da97ebaad19eda0c1c365e500db5f7
+What variables will you visualize to explore your research questions? We
+will be focusing primarily on gender, race, grade, and physical activity
+Will there be any other data that you need to find to help with your
+research question? Very preliminary exploratory data analysis, including
+some summary statistics and visualizations, along with some explanation
+on how they help you learn more about your data. (You can add to these
+later as you work on your project.) The data visualization(s) that you
+believe will be useful in exploring your question(s). (You can update
+these later as you work on your project.)
+
+We would first like to look at distribution in data biased on gender,
+race, and grade (see how many males vs. females, etc.). This
+visualization will probably be a scatter plot and will tell us if the
+demographics represented in the data seem proportional. Then we will
+look at the correlation between tobacco use and physical activity and
+asthma. We will most likely visualize this in a density plots or a
+barplot. Then we will look at tobacco use vs drug/alcohol use. We will
+most likely visualize this in a barplot. Then we will look at the
+correlation between the initiation of alcohol use compared to current
+alcohol use + demographics (gender, race, and grade). We will most
+likely visualize this in a density plots or a barplot. Then we will look
+at the correlation between the initiation of marijuana use vs current
+marijuana use + demographics (gender, race, and grade). We will most
+likely visualize this in a density plots or a barplot.
