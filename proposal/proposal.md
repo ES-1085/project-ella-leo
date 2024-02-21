@@ -10,6 +10,43 @@ library(readr)
 
 ## 1. Introduction
 
+For our project we are working with a data set called “Youth Risk
+Behavior Surveillance System,” collected by the CDC. This data set looks
+at demographics, environments, and behaviors in teenagers from 9-12th
+grade across the country. According to the CDC the intent of this data
+is to “determine how often unhealthy behaviors occur,assess whether
+unhealthy behaviors increase, decrease, or stay the same over
+time,provide data at the national, state, territorial and freely
+associated state, tribal, and local levels, and provide data comparing
+different groups of adolescents. The data is collected through surveys
+given to students at both public and private high schools across the US.
+
+Due to the size of the data we are looking at data from Maine only in
+the years 2015 and 2017. The behaviors (variables) we will be looking at
+specifically are:
+
+\[1\] “Behaviors that Contribute to Unintentional Injuries” \[2\]
+“Behaviors that Contribute to Violence”  
+\[4\] “Cigarette Use”  
+\[5\] “Other Tobacco Use”  
+\[6\] “Alcohol Use”  
+\[7\] “Other Drug Use”  
+\[8\] “Sexual Behaviors”  
+\[9\] “Physical Activity”
+
+There are several questions we are interested in exploring through this
+data:
+
+1.  What is the relationship between tobacco use and physical activity?
+2.  Are certain demographics of students more likely to engage in risky
+    behaviors?
+3.  How does age of initiation of use of a specific substance correlate
+    with current use of that substance?
+4.  Are students who use tobacco more likely to use alcohol or
+    marijuana?
+
+Add– why did we choose to look at this data set?
+
 ## 2. Data
 
 ``` r
@@ -65,6 +102,12 @@ new_youth_risk_df %>%
 
 ## 3. Ethics review
 
+I’m not actually sure how to do this section.
+
 ## 4. Data analysis plan
 
-
+Distribution in data gender, race, grade(see how many males vs. females,
+etc.) then: then: Look at the correlation between tobacco use and
+physical activity + asthma Tobacco use vs drug/alcohol use Initiation of
+alcohol use compared to current alcohol use + demographics Initiation of
+marijuana use vs current marijuana use + demographics
