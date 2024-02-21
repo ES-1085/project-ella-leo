@@ -12,7 +12,7 @@ using the following format.
 - `ShortQuestionText`: shorted text of full question
 - `Greater_Risk_Data_Value`: percentage of respondes who answered yes to short question text 
 - `Lesser_Risk_Data_Value`: percentage of respondes who answered no to short question text 
-- `Sample_Size`: ... answer later
+- `Sample_Size`: number of respondents 
 - `Sex`: Gender of respondent
 - `Race`: Race of respondent
 - `Grade`: Grade of respondent
