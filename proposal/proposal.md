@@ -45,8 +45,6 @@ data:
 4.  Are students who use tobacco more likely to use alcohol or
     marijuana?
 
-Add– why did we choose to look at this data set?
-
 ## 2. Data
 
 ``` r
@@ -136,15 +134,15 @@ new_youth_risk_df %>%
 
 ## 3. Ethics review
 
-I’m not actually sure how to do this section.
-
 ## 4. Data analysis plan
-<<<<<<< HEAD
 
-Distribution in data gender, race, grade(see how many males vs. females,
-etc.) then: then: Look at the correlation between tobacco use and
-physical activity + asthma Tobacco use vs drug/alcohol use Initiation of
-alcohol use compared to current alcohol use + demographics Initiation of
-marijuana use vs current marijuana use + demographics
-=======
->>>>>>> 974b455a43da97ebaad19eda0c1c365e500db5f7
+We have discussed the variables we will use in the introduction. At this
+point we don’t plan on using additional data. To begin we will first we
+will look at the distribution in data of gender, sexual orientation,
+race, and grade. This will allow us to visualize data for both the total
+answers as well as specific groups within the data set.  
+Some ideas we have to visualize data for our specific questions are: To
+look at the correlation between tobacco use and physical activity we
+will use a scatterplot, because this will allow us to calculate the
+correlation coefficient. To look at the initiation of substance use vs
+current use we could use ? because ?
