@@ -1,6 +1,6 @@
 Project proposal
 ================
-Team name
+Ella and Leo
 
 ``` r
 library(tidyverse)
@@ -71,6 +71,25 @@ new_youth_risk_df <- youth_risk %>%
 ```
 
 ``` r
+glimpse(new_youth_risk_df)
+```
+
+    ## Rows: 188,760
+    ## Columns: 12
+    ## $ YEAR                    <dbl> 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017…
+    ## $ Topic                   <chr> "Unintentional Injuries and Violence", "Uninte…
+    ## $ Subtopic                <chr> "Behaviors that Contribute to Unintentional In…
+    ## $ ShortQuestionText       <chr> "Drinking and driving", "Drinking and driving"…
+    ## $ Greater_Risk_Data_Value <dbl> 4.2920, 5.4859, 10.3536, 10.4129, 10.3849, 0.6…
+    ## $ Lesser_Risk_Data_Value  <dbl> 95.7080, 94.5141, 89.6464, 89.5871, 89.6151, 9…
+    ## $ Sample_Size             <dbl> 5138, 2469, 193, 230, 423, 1824, 4451, 137, 34…
+    ## $ Sex                     <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ Race                    <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ Grade                   <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ SexualIdentity          <chr> "Total", "Total", "Total", "Total", "Total", "…
+    ## $ SexOfSexualContacts     <chr> "Total", "Opposite sex only", "Same sex only",…
+
+``` r
 # new_youth_risk_df %>%
 #   filter(Subtopic != c("Suicide-Related Behaviors", "Fruit and fruit juices", "Milk", "Obesity and Overweight", "Sleep")) 
 ```
@@ -136,6 +155,7 @@ new_youth_risk_df %>%
 
 ## 4. Data analysis plan
 
+<<<<<<< HEAD
 We have discussed the variables we will use in the introduction. At this
 point we don’t plan on using additional data. To begin we will first we
 will look at the distribution in data of gender, sexual orientation,
@@ -146,3 +166,29 @@ look at the correlation between tobacco use and physical activity we
 will use a scatterplot, because this will allow us to calculate the
 correlation coefficient. To look at the initiation of substance use vs
 current use we could use ? because ?
+=======
+What variables will you visualize to explore your research questions? We
+will be focusing primarily on gender, race, grade, and physical activity
+Will there be any other data that you need to find to help with your
+research question? Very preliminary exploratory data analysis, including
+some summary statistics and visualizations, along with some explanation
+on how they help you learn more about your data. (You can add to these
+later as you work on your project.) The data visualization(s) that you
+believe will be useful in exploring your question(s). (You can update
+these later as you work on your project.)
+
+We would first like to look at distribution in data biased on gender,
+race, and grade (see how many males vs. females, etc.). This
+visualization will probably be a scatter plot and will tell us if the
+demographics represented in the data seem proportional. Then we will
+look at the correlation between tobacco use and physical activity and
+asthma. We will most likely visualize this in a density plots or a
+barplot. Then we will look at tobacco use vs drug/alcohol use. We will
+most likely visualize this in a barplot. Then we will look at the
+correlation between the initiation of alcohol use compared to current
+alcohol use + demographics (gender, race, and grade). We will most
+likely visualize this in a density plots or a barplot. Then we will look
+at the correlation between the initiation of marijuana use vs current
+marijuana use + demographics (gender, race, and grade). We will most
+likely visualize this in a density plots or a barplot.
+>>>>>>> d75cc983c464e3381b77908b303770c2203166d1
