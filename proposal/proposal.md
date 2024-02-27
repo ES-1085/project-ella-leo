@@ -153,10 +153,20 @@ new_youth_risk_df %>%
 
 ## 3. Ethics review
 
-I’m not actually sure how to do this section.
-
 ## 4. Data analysis plan
 
+<<<<<<< HEAD
+We have discussed the variables we will use in the introduction. At this
+point we don’t plan on using additional data. To begin we will first we
+will look at the distribution in data of gender, sexual orientation,
+race, and grade. This will allow us to visualize data for both the total
+answers as well as specific groups within the data set.  
+Some ideas we have to visualize data for our specific questions are: To
+look at the correlation between tobacco use and physical activity we
+will use a scatterplot, because this will allow us to calculate the
+correlation coefficient. To look at the initiation of substance use vs
+current use we could use ? because ?
+=======
 What variables will you visualize to explore your research questions? We
 will be focusing primarily on gender, race, grade, and physical activity
 Will there be any other data that you need to find to help with your
@@ -181,3 +191,4 @@ likely visualize this in a density plots or a barplot. Then we will look
 at the correlation between the initiation of marijuana use vs current
 marijuana use + demographics (gender, race, and grade). We will most
 likely visualize this in a density plots or a barplot.
+>>>>>>> d75cc983c464e3381b77908b303770c2203166d1

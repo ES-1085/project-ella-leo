@@ -45,6 +45,10 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 ```
 
 ```{r}
+glimpse(new_youth_risk_df)
+```
+
+```{r}
 new_youth_risk_df <- youth_risk %>% 
   select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
 
@@ -81,15 +85,9 @@ new_youth_risk_df %>%
 
 ## 3. Ethics review
 
-I'm not actually sure how to do this section.  
+
 
 ## 4. Data analysis plan
-
-What variables will you visualize to explore your research questions?
-We will be focusing primarily on gender, race, grade, and physical activity
-Will there be any other data that you need to find to help with your research question?
-Very preliminary exploratory data analysis, including some summary statistics and visualizations, along with some explanation on how they help you learn more about your data. (You can add to these later as you work on your project.)
-The data visualization(s) that you believe will be useful in exploring your question(s). (You can update these later as you work on your project.)
 
 
 We would first like to look at distribution in data biased on gender, race, and grade (see how many males vs. females, etc.). This visualization will probably be a scatter plot and will tell us if the demographics represented in the data seem proportional.
@@ -97,4 +95,7 @@ Then we will look at the correlation between tobacco use and physical activity a
 Then we will look at tobacco use vs drug/alcohol use. We will most likely visualize this in a barplot.
 Then we will look at the correlation between the initiation of alcohol use compared to current alcohol use + demographics (gender, race, and grade). We will most likely visualize this in a density plots or a barplot.
 Then we will look at the correlation between the initiation of marijuana use vs current marijuana use + demographics (gender, race, and grade). We will most likely visualize this in a density plots or a barplot.
+>>>>>>> d75cc983c464e3381b77908b303770c2203166d1
+=======
+
 
