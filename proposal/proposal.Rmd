@@ -81,6 +81,24 @@ Alc_data_frame %>%
 
 ## 3. Ethics review
 
+Are there limitations that could influence your
+project’s outcomes?
+
+It is highly likely that some students will not feel comfortable answering questions about illegal activity ie. substance use. The data set tries to account for this by including a confidence value for each row in the data set. The data set also does not specify what high schools are included in the survey, and weather or not rural areas are surveyed as frequently as more populated areas.  Socioeconomic information being included in the data set could give more clarity as to who and potentially why people are ending up engaging in high risk behaviors. This data set is super effective at looking at behavior patterns of teenagers overall, but doesn't allow for much analysis beyond that. We only have two people on the team, and we are only looking at a very small subsection of an enormous data set-- because we chose to look at only data from Maine the demographics will likely be majority white students. 
+
+Which individuals, groups, demographics or organisations will be positively affected by this project? How? How are you measuring and communicating positive impact, and how could you increase it? 
+
+Our analysis can increase our peers understanding of risky behaviors in teens. We will measure this by engagement with our presentation and facilitating a good conversation about our project. 
+The impact could be increased if we had more time or people to analyse additional data to do a broader analysis. 
+
+Who could be negatively affected by this project? Could the way that data is collected, used or shared cause harm or expose individuals to risk of being reidentified? Could it be used to target, profile or prejudice people,or unfairly restrict access (eg exclusive arrangements)?
+How are limitations and risks communicated to people? 
+
+We believe the data is too large to identify people and the collection progress through anonymity survey was effective at protecting peoples anonymity. If whoever is interpreting the data chooses to associate identity markers such as race, sex, and sexual orientation with the cause of risky behavior, rather than a factor, that interpretation is harmful and can be used to justify discrimination. 
+
+What steps can you take to minimize harm? How are you measuring, reporting and acting on potential negative impacts of your project? What benefits will these actions bring to your project?
+
+We can accurately interpret and visualize the data as well as share with our people the importance of not looking at data with preconceptions. 
 
 
 ## 4. Data analysis plan
@@ -94,4 +112,10 @@ Then we will look at the correlation between the initiation of marijuana use vs 
 >>>>>>> d75cc983c464e3381b77908b303770c2203166d1
 =======
 
+```{r}
+filter(subtopic)
+```
+
+```{r}
+```
 
