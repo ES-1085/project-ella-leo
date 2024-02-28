@@ -50,7 +50,8 @@ glimpse(new_youth_risk_df)
 
 ```{r}
 new_youth_risk_df <- youth_risk %>% 
-  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
+  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>%
+  filter(YEAR == 2017)
 
 ```
 
@@ -74,14 +75,44 @@ new_youth_risk_df %>%
 ```
 
 ```{r}
-new_youth_risk_df %>%
+milk_data_frame <- new_youth_risk_df %>%
   filter(Subtopic == "Milk") %>%
-  group_by(ShortQuestionText, Race) %>%
+  group_by(YEAR, ShortQuestionText, Race, Sex, Grade, SexualIdentity, SexOfSexualContacts, Sample_Size) %>%
   summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
+  arrange(desc(Greater_Risk_Data_Value)) %>%
+  filter(YEAR == 2017, Sex == "Total", Grade == "Total", SexualIdentity == "Total", SexOfSexualContacts == "Total", Race != "Total")
+```
+
+```{r}
+milk_data_frame <- milk_data_frame %>% 
+  mutate(number_of_glasses = case_when(ShortQuestionText == "Milk drinking >= 3 glasses" ~ 3,
+                                       ShortQuestionText == "Milk drinking >= 2 glasses" ~ 2,
+                                       ShortQuestionText == "Milk drinking >= 1 glass" ~ 1,
+                                       ShortQuestionText == "No milk drinking" ~ 0))
+```
+
+```{r}
+milk_data_frame %>% 
+  ggplot(aes(x= number_of_glasses, y = Greater_Risk_Data_Value, color = Race))+
+  geom_point()
+```
+```{r}
+Alc_data_frame <- new_youth_risk_df %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Current alcohol use")) %>%
+  group_by(ShortQuestionText, Race) %>%
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0), Lesser_Risk_Data_Value = round(mean(Lesser_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
   arrange(desc(Greater_Risk_Data_Value)) %>%
   filter(Race != "Total")
 ```
 
+```{r}
+Alc_data_frame %>% 
+  ggplot(aes(x= ShortQuestionText, y = Greater_Risk_Data_Value, fill = Race))+
+  geom_col(position = "dodge")
+Alc_data_frame %>% 
+  ggplot(aes(x= ShortQuestionText, y = Lesser_Risk_Data_Value, fill = Race))+
+  geom_col(position = "dodge")
+```
 
 ## 3. Ethics review
 
