@@ -55,6 +55,7 @@ new_youth_risk_df <- youth_risk %>%
 glimpse(new_youth_risk_df)
 ```
 
+
 ```{r}
 Alc_data_frame <- new_youth_risk_df %>%
   filter(ShortQuestionText %in% c("Initiation of alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
@@ -63,7 +64,7 @@ Alc_data_frame <- new_youth_risk_df %>%
   arrange(desc(Greater_Risk_Data_Value)) %>%
   filter(Race != "Total") 
 
- Alc_data_frame<- Alc_data_frame %>%
+ Alc_data_frame <- Alc_data_frame %>%
  pivot_longer(
     ends_with("Risk_Data_Value"), 
     names_to = "Risk_Data", 
@@ -75,8 +76,7 @@ Alc_data_frame %>%
   ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
   geom_col(position = "dodge") +
   facet_wrap(~Risk_Data) +
-  scale_fill_viridis_d()
-
+  scale_fill_brewer(palette = "RdPu")
 ```
 
 ## 3. Ethics review
