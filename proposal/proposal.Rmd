@@ -45,10 +45,6 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 ```
 
 ```{r}
-glimpse(new_youth_risk_df)
-```
-
-```{r}
 new_youth_risk_df <- youth_risk %>% 
   select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>%
   filter(YEAR == 2017)
@@ -60,58 +56,27 @@ glimpse(new_youth_risk_df)
 ```
 
 ```{r}
-# new_youth_risk_df %>%
-#   filter(Subtopic != c("Suicide-Related Behaviors", "Fruit and fruit juices", "Milk", "Obesity and Overweight", "Sleep")) 
-```
-
-
-```{r}
-new_youth_risk_df %>%
-  filter(Subtopic == "Milk") %>%
-  group_by(ShortQuestionText) %>%
-  mutate(Greater_Risk_Data_Value = round(Greater_Risk_Data_Value, digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value))
-  
-```
-
-```{r}
-milk_data_frame <- new_youth_risk_df %>%
-  filter(Subtopic == "Milk") %>%
-  group_by(YEAR, ShortQuestionText, Race, Sex, Grade, SexualIdentity, SexOfSexualContacts, Sample_Size) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value)) %>%
-  filter(YEAR == 2017, Sex == "Total", Grade == "Total", SexualIdentity == "Total", SexOfSexualContacts == "Total", Race != "Total")
-```
-
-```{r}
-milk_data_frame <- milk_data_frame %>% 
-  mutate(number_of_glasses = case_when(ShortQuestionText == "Milk drinking >= 3 glasses" ~ 3,
-                                       ShortQuestionText == "Milk drinking >= 2 glasses" ~ 2,
-                                       ShortQuestionText == "Milk drinking >= 1 glass" ~ 1,
-                                       ShortQuestionText == "No milk drinking" ~ 0))
-```
-
-```{r}
-milk_data_frame %>% 
-  ggplot(aes(x= number_of_glasses, y = Greater_Risk_Data_Value, color = Race))+
-  geom_point()
-```
-```{r}
 Alc_data_frame <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Current alcohol use")) %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
   group_by(ShortQuestionText, Race) %>%
   summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0), Lesser_Risk_Data_Value = round(mean(Lesser_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
   arrange(desc(Greater_Risk_Data_Value)) %>%
-  filter(Race != "Total")
+  filter(Race != "Total") 
+
+ Alc_data_frame<- Alc_data_frame %>%
+ pivot_longer(
+    ends_with("Risk_Data_Value"), 
+    names_to = "Risk_Data", 
+    values_to = "Risk_Percent")
 ```
 
 ```{r}
 Alc_data_frame %>% 
-  ggplot(aes(x= ShortQuestionText, y = Greater_Risk_Data_Value, fill = Race))+
-  geom_col(position = "dodge")
-Alc_data_frame %>% 
-  ggplot(aes(x= ShortQuestionText, y = Lesser_Risk_Data_Value, fill = Race))+
-  geom_col(position = "dodge")
+  ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
+  geom_col(position = "dodge") +
+  facet_wrap(~Risk_Data) +
+  scale_fill_viridis_d()
+
 ```
 
 ## 3. Ethics review
