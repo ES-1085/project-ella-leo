@@ -98,4 +98,10 @@ Then we will look at the correlation between the initiation of marijuana use vs 
 >>>>>>> d75cc983c464e3381b77908b303770c2203166d1
 =======
 
+```{r}
+filter(subtopic)
+```
+
+```{r}
+```
 
