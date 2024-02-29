@@ -105,6 +105,7 @@ Alc_data_frame <- new_youth_risk_df %>%
   filter(Race != "Total")
 ```
 
+
 ```{r}
 Alc_data_frame %>% 
   ggplot(aes(x= ShortQuestionText, y = Greater_Risk_Data_Value, fill = Race))+

@@ -1,6 +1,12 @@
 1. What is the relationship between tobacco use and physical activity 
 
 ```{r}
-
+smoking_data <- new_youth_risk_df %>%
+  filter(ShortQuestionText %in% c("Current cigarette use", "Smoked >10 cigarettes", "Current daily cigarette use", "Frequent cigarette use")) %>%
+  group_by(ShortQuestionText, Race) %>%
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0), Lesser_Risk_Data_Value = round(mean(Lesser_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
+  arrange(desc(Greater_Risk_Data_Value)) %>%
+  filter(Race != "Total")
 ```
+
 
