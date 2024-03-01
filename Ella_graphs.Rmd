@@ -1,12 +1,66 @@
 1. What is the relationship between tobacco use and physical activity 
 
+
 ```{r}
-smoking_data <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Current cigarette use", "Smoked >10 cigarettes", "Current daily cigarette use", "Frequent cigarette use")) %>%
-  group_by(ShortQuestionText, Race) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0), Lesser_Risk_Data_Value = round(mean(Lesser_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value)) %>%
-  filter(Race != "Total")
+tobacco_data <- new_youth_risk_df %>% 
+  # filter(LocationAbbr == "ME") %>% 
+  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
+  filter(Topic %in% c("Tobacco Use", "Physical Activity")) %>% 
+  group_by(ShortQuestionText) %>%
+  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic)
+  mutate(total_count = count * Sample_Size)
+```
+```{r}
+tobacco_data <- new_youth_risk_df %>% 
+  # filter(LocationAbbr == "ME") %>% 
+  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
+  filter(Topic %in% c("Tobacco Use")) %>% 
+  group_by(ShortQuestionText) %>%
+  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic, Grade) +
+  #mutate(total_count = count * Sample_Size) +
+  filter(Grade != "Total")
 ```
 
+```{r}
+tobacco_data %>%
+  ggplot(aes(y = Topic, x = count)) +
+  geom_col(ledgend = NULL)
+```
+
+```{r}
+tobacco_data %>%
+  filter(Grade != "Total") %>%
+  mutate(Grade = as.factor(Grade)) %>%
+  mutate(Grade = fct_relevel(Grade, "9th")) %>%
+  group_by(Grade, ShortQuestionText) %>%
+  summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
+  ggplot(aes(y = ShortQuestionText, x = mean, fill = Grade)) +
+  geom_col(ledgend = NULL, position = "dodge") +
+  scale_color_viridis_b()
+  
+```
+```{r}
+health_data <- new_youth_risk_df %>% 
+  # filter(LocationAbbr == "ME") %>% 
+  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
+  filter(Topic %in% c("Physical Activity")) %>% 
+  group_by(ShortQuestionText) %>%
+  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic, Grade)
+  #mutate(total_count = count * Sample_Size)
+```
+```{r}
+health_data %>%
+  filter(Grade != "Total") %>%
+  mutate(Grade = as.factor(Grade)) %>%
+  mutate(Grade = fct_relevel(Grade, "9th")) %>%
+  group_by(Grade, ShortQuestionText) %>%
+  summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
+  ggplot(aes(y = ShortQuestionText, x = mean, fill = Grade)) +
+  geom_col(ledgend = NULL, position = "dodge") 
+
+```
+
+```{r}
+
+```
 
