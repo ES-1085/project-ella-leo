@@ -67,14 +67,15 @@ youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__
 
 ``` r
 new_youth_risk_df <- youth_risk %>% 
-  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts")
+  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>%
+  filter(YEAR == 2017)
 ```
 
 ``` r
 glimpse(new_youth_risk_df)
 ```
 
-    ## Rows: 188,760
+    ## Rows: 100,320
     ## Columns: 12
     ## $ YEAR                    <dbl> 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017…
     ## $ Topic                   <chr> "Unintentional Injuries and Violence", "Uninte…
@@ -90,92 +91,94 @@ glimpse(new_youth_risk_df)
     ## $ SexOfSexualContacts     <chr> "Total", "Opposite sex only", "Same sex only",…
 
 ``` r
-# new_youth_risk_df %>%
-#   filter(Subtopic != c("Suicide-Related Behaviors", "Fruit and fruit juices", "Milk", "Obesity and Overweight", "Sleep")) 
-```
-
-``` r
-new_youth_risk_df %>%
-  filter(Subtopic == "Milk") %>%
-  group_by(ShortQuestionText) %>%
-  mutate(Greater_Risk_Data_Value = round(Greater_Risk_Data_Value, digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value))
-```
-
-    ## # A tibble: 10,560 × 12
-    ## # Groups:   ShortQuestionText [4]
-    ##     YEAR Topic             Subtopic ShortQuestionText     Greater_Risk_Data_Va…¹
-    ##    <dbl> <chr>             <chr>    <chr>                                  <dbl>
-    ##  1  2017 Dietary Behaviors Milk     Milk drinking >= 2 g…                    100
-    ##  2  2017 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  3  2017 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  4  2017 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  5  2017 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  6  2015 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  7  2015 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  8  2015 Dietary Behaviors Milk     Milk drinking >= 3 g…                    100
-    ##  9  2017 Dietary Behaviors Milk     Milk drinking >= 3 g…                     99
-    ## 10  2017 Dietary Behaviors Milk     Milk drinking >= 2 g…                     98
-    ## # ℹ 10,550 more rows
-    ## # ℹ abbreviated name: ¹​Greater_Risk_Data_Value
-    ## # ℹ 7 more variables: Lesser_Risk_Data_Value <dbl>, Sample_Size <dbl>,
-    ## #   Sex <chr>, Race <chr>, Grade <chr>, SexualIdentity <chr>,
-    ## #   SexOfSexualContacts <chr>
-
-``` r
-new_youth_risk_df %>%
-  filter(Subtopic == "Milk") %>%
+Alc_data_frame <- new_youth_risk_df %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
   group_by(ShortQuestionText, Race) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value)) %>%
-  filter(Race != "Total")
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0))
 ```
 
     ## `summarise()` has grouped output by 'ShortQuestionText'. You can override using
     ## the `.groups` argument.
 
-    ## # A tibble: 28 × 3
-    ## # Groups:   ShortQuestionText [4]
-    ##    ShortQuestionText          Race                        Greater_Risk_Data_Va…¹
-    ##    <chr>                      <chr>                                        <dbl>
-    ##  1 Milk drinking >= 3 glasses Asian                                           93
-    ##  2 Milk drinking >= 3 glasses Black or African American                       91
-    ##  3 Milk drinking >= 3 glasses Multiple Race                                   91
-    ##  4 Milk drinking >= 3 glasses White                                           90
-    ##  5 Milk drinking >= 3 glasses Hispanic or Latino                              89
-    ##  6 Milk drinking >= 3 glasses American Indian or Alaska …                     88
-    ##  7 Milk drinking >= 2 glasses Asian                                           81
-    ##  8 Milk drinking >= 2 glasses Multiple Race                                   79
-    ##  9 Milk drinking >= 2 glasses Black or African American                       78
-    ## 10 Milk drinking >= 2 glasses Hispanic or Latino                              78
-    ## # ℹ 18 more rows
-    ## # ℹ abbreviated name: ¹​Greater_Risk_Data_Value
+``` r
+ Alc_data_frame <- Alc_data_frame %>%
+ pivot_longer(
+    ends_with("Risk_Data_Value"), 
+    names_to = "Risk_Data", 
+    values_to = "Risk_Percent") 
+```
+
+``` r
+Alc_data_frame %>% 
+  filter(Race != "Native Hawaiian or Other Pacific Islander") %>% 
+ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
+   geom_col(position="dodge", stat="identity") +
+   scale_fill_viridis_d()
+```
+
+    ## Warning in geom_col(position = "dodge", stat = "identity"): Ignoring unknown
+    ## parameters: `stat`
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+# Alc_data_frame %>% 
+#   ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
+#   geom_col(position = "dodge") +
+#   facet_wrap(~Risk_Data) +
+#   scale_fill_brewer(palette = "RdPu")
+```
 
 ## 3. Ethics review
 
-## 4. Data analysis plan
+Are there limitations that could influence your project’s outcomes?
 
-<<<<<<< HEAD
-We have discussed the variables we will use in the introduction. At this
-point we don’t plan on using additional data. To begin we will first we
-will look at the distribution in data of gender, sexual orientation,
-race, and grade. This will allow us to visualize data for both the total
-answers as well as specific groups within the data set.  
-Some ideas we have to visualize data for our specific questions are: To
-look at the correlation between tobacco use and physical activity we
-will use a scatterplot, because this will allow us to calculate the
-correlation coefficient. To look at the initiation of substance use vs
-current use we could use ? because ?
-=======
-What variables will you visualize to explore your research questions? We
-will be focusing primarily on gender, race, grade, and physical activity
-Will there be any other data that you need to find to help with your
-research question? Very preliminary exploratory data analysis, including
-some summary statistics and visualizations, along with some explanation
-on how they help you learn more about your data. (You can add to these
-later as you work on your project.) The data visualization(s) that you
-believe will be useful in exploring your question(s). (You can update
-these later as you work on your project.)
+It is highly likely that some students will not feel comfortable
+answering questions about illegal activity ie. substance use. The data
+set tries to account for this by including a confidence value for each
+row in the data set. The data set also does not specify what high
+schools are included in the survey, and weather or not rural areas are
+surveyed as frequently as more populated areas. Socioeconomic
+information being included in the data set could give more clarity as to
+who and potentially why people are ending up engaging in high risk
+behaviors. This data set is super effective at looking at behavior
+patterns of teenagers overall, but doesn’t allow for much analysis
+beyond that. We only have two people on the team, and we are only
+looking at a very small subsection of an enormous data set– because we
+chose to look at only data from Maine the demographics will likely be
+majority white students.
+
+Which individuals, groups, demographics or organisations will be
+positively affected by this project? How? How are you measuring and
+communicating positive impact, and how could you increase it?
+
+Our analysis can increase our peers understanding of risky behaviors in
+teens. We will measure this by engagement with our presentation and
+facilitating a good conversation about our project. The impact could be
+increased if we had more time or people to analyse additional data to do
+a broader analysis.
+
+Who could be negatively affected by this project? Could the way that
+data is collected, used or shared cause harm or expose individuals to
+risk of being reidentified? Could it be used to target, profile or
+prejudice people,or unfairly restrict access (eg exclusive
+arrangements)? How are limitations and risks communicated to people?
+
+We believe the data is too large to identify people and the collection
+progress through anonymity survey was effective at protecting peoples
+anonymity. If whoever is interpreting the data chooses to associate
+identity markers such as race, sex, and sexual orientation with the
+cause of risky behavior, rather than a factor, that interpretation is
+harmful and can be used to justify discrimination.
+
+What steps can you take to minimize harm? How are you measuring,
+reporting and acting on potential negative impacts of your project? What
+benefits will these actions bring to your project?
+
+We can accurately interpret and visualize the data as well as share with
+our people the importance of not looking at data with preconceptions.
+
+## 4. Data analysis plan
 
 We would first like to look at distribution in data biased on gender,
 race, and grade (see how many males vs. females, etc.). This
@@ -190,5 +193,9 @@ alcohol use + demographics (gender, race, and grade). We will most
 likely visualize this in a density plots or a barplot. Then we will look
 at the correlation between the initiation of marijuana use vs current
 marijuana use + demographics (gender, race, and grade). We will most
-likely visualize this in a density plots or a barplot.
->>>>>>> d75cc983c464e3381b77908b303770c2203166d1
+likely visualize this in a density plots or a barplot. \>\>\>\>\>\>\>
+d75cc983c464e3381b77908b303770c2203166d1 =======
+
+``` r
+# filter(subtopic)
+```

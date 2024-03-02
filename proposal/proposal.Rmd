@@ -58,26 +58,31 @@ glimpse(new_youth_risk_df)
 
 ```{r}
 Alc_data_frame <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
   group_by(ShortQuestionText, Race) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0), Lesser_Risk_Data_Value = round(mean(Lesser_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
-  arrange(desc(Greater_Risk_Data_Value)) %>%
-  filter(Race != "Total") 
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0))
 
  Alc_data_frame <- Alc_data_frame %>%
  pivot_longer(
     ends_with("Risk_Data_Value"), 
     names_to = "Risk_Data", 
-    values_to = "Risk_Percent")
+    values_to = "Risk_Percent") 
 ```
-
 
 ```{r}
 Alc_data_frame %>% 
-  ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
-  geom_col(position = "dodge") +
-  facet_wrap(~Risk_Data) +
-  scale_fill_brewer(palette = "RdPu")
+  filter(Race != "Native Hawaiian or Other Pacific Islander") %>% 
+ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
+   geom_col(position="dodge", stat="identity") +
+   scale_fill_viridis_d()
+```
+
+```{r}
+# Alc_data_frame %>% 
+#   ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
+#   geom_col(position = "dodge") +
+#   facet_wrap(~Risk_Data) +
+#   scale_fill_brewer(palette = "RdPu")
 ```
 
 ## 3. Ethics review
@@ -114,7 +119,7 @@ Then we will look at the correlation between the initiation of marijuana use vs 
 =======
 
 ```{r}
-filter(subtopic)
+# filter(subtopic)
 ```
 
 ```{r}
