@@ -113,7 +113,13 @@ Alc_data_frame %>%
   filter(Race != "Native Hawaiian or Other Pacific Islander") %>% 
 ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
-   scale_fill_viridis_d()
+  scale_fill_discrete(name="Questions",
+                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
+                     labels = c("Percentage of students who currently drank alcohol", "Percentage of students who ever drank alcohol", "Percentage of students who had their first drink of alcohol before age 13 years", "Percentage of students who reported that the largest number of drinks they had in a row was 10 or more" )) +
+  labs(x = "Race", y = "% answering yes",
+    title = "Questions about teen alcohol use",
+    subtitle = "By Race",
+    fill = "Severity") 
 ```
 
     ## Warning in geom_col(position = "dodge", stat = "identity"): Ignoring unknown
