@@ -110,11 +110,14 @@ Alc_Race_data_frame <- new_youth_risk_df %>%
 ```
 
 ``` r
+Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("White", "Hispanic or Latino", "Multiple Race", "American Indian or Alaska Native", "Asian", "Black or African American", "Total"))
+
 Alc_Race_data_frame %>% 
-  filter(Race != "Native Hawaiian or Other Pacific Islander") %>% 
-ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
+  filter(Race != "Native Hawaiian or Other Pacific Islander") %>%
+  #mutate(Race = fct_relevel(Race, "White")) %>%
+ggplot(aes(y= Race, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
-labs(x = "Race", y = "Percentage",
+labs(y = "Race", x = "Percentage",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Race",
     fill = "Severity") +
@@ -150,9 +153,9 @@ Alc_Grade_data_frame <- new_youth_risk_df %>%
 ``` r
 Alc_Grade_data_frame %>% 
   filter(Grade != "Native Hawaiian or Other Pacific Islander") %>% 
-ggplot(aes(x= Grade, y = Risk_Percent, fill = ShortQuestionText)) +
+ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
- labs(x = "Grade", y = "Percentage",
+ labs(y = "Grade", x = "Percentage",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Grade",
     fill = "Severity") +
@@ -188,9 +191,9 @@ Alc_Sex_data_frame <- new_youth_risk_df %>%
 ``` r
 Alc_Sex_data_frame %>% 
   filter(Sex != "Native Hawaiian or Other Pacific Islander") %>% 
-ggplot(aes(x= Sex, y = Risk_Percent, fill = ShortQuestionText)) +
+ggplot(aes(y= Sex, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
- labs(x = "Sex", y = "Percentage",
+ labs(y = "Sex", x = "Percentage",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Sex",
     fill = "Severity") +
