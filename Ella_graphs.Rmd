@@ -3,31 +3,29 @@
 
 ```{r}
 tobacco_data <- new_youth_risk_df %>% 
-  # filter(LocationAbbr == "ME") %>% 
-  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
-  filter(Topic %in% c("Tobacco Use", "Physical Activity")) %>% 
-  group_by(ShortQuestionText) %>%
-  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic)
-  mutate(total_count = count * Sample_Size)
-```
-```{r}
-tobacco_data <- new_youth_risk_df %>% 
-  # filter(LocationAbbr == "ME") %>% 
-  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
   filter(Topic %in% c("Tobacco Use")) %>% 
   group_by(ShortQuestionText) %>%
-  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic, Grade) +
-  #mutate(total_count = count * Sample_Size) +
-  filter(Grade != "Total")
+  summarise(Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic, Grade, SexOfSexualContacts, Sex)
 ```
 
 ```{r}
-tobacco_data %>%
-  ggplot(aes(y = Topic, x = count)) +
-  geom_col(ledgend = NULL)
+tobacco_data %>% 
+  filter(Race == "Total", SexualIdentity == "Total", SexOfSexualContacts == "Total", Sex == "Total") %>%
+filter (Grade != "Total") %>%
+group_by(ShortQuestionText) %>%
+  mutate(summarised_group = case_when(ShortQuestionText %in% c("Frequent electronic vapor product use", "Electronic vapor product use",  "Electronic vapor products from store", "Frequent smokeless tobacco use", "Current smokeless tobacco use", "Current electronic vapor product use") ~ "Vaporizer and Smokeless Tobacco Use",
+         ShortQuestionText %in% c("Current daily electronic vapor product use", "Current cigarette, cigar, or smokeless tobacco use", "Current daily cigar use", "Current daily cigarette use", "Current daily smokeless tobacco use") ~ "Daily Nicotine Use", 
+         ShortQuestionText %in% c("Smoked >10 cigarettes" ,"Frequent cigarette use", "Ever cigarette use","Current cigarette, cigar, or smokeless tobacco use","Current cigarette use" , "Current cigarette or cigar use", "Current tobacco use") ~ "Cigarette Use", 
+         ShortQuestionText %in% c("Frequent cigar use","Current cigar use")~ "Cigar Use",
+           TRUE ~ ShortQuestionText)) %>%
+  mutate(Grade = fct_relevel(Grade, "9th")) %>%
+  group_by(Grade, summarised_group) %>%
+  summarise(Sum = sum(Sample_Size, na.rm = TRUE)) %>%
+  ggplot(aes(y = summarised_group, x = Sum, fill = Grade)) +
+  geom_col(ledgend = NULL, position = "dodge")
 ```
 
-```{r}
+```{r nicotine use by grade, fig.alt = "Bar graph showing nicotine use by type of use and by grade, where Cigarette use is the highest, followed by vaporizer and smokeless tobacco, and finally cigar use. Daily nicotine use actoss all four grades is 5%."}
 unique(tobacco_data$ShortQuestionText)
 
 tobacco_data %>%
@@ -35,7 +33,7 @@ tobacco_data %>%
   mutate(Grade = as.factor(Grade)) %>%
   mutate(summarised_group = case_when(ShortQuestionText %in% c("Frequent electronic vapor product use", "Electronic vapor product use",  "Electronic vapor products from store", "Frequent smokeless tobacco use", "Current smokeless tobacco use", "Current electronic vapor product use") ~ "Vaporizer and Smokeless Tobacco Use",
          ShortQuestionText %in% c("Current daily electronic vapor product use", "Current cigarette, cigar, or smokeless tobacco use", "Current daily cigar use", "Current daily cigarette use", "Current daily smokeless tobacco use") ~ "Daily Nicotine Use", 
-         ShortQuestionText %in% c("Smoked >10 cigarettes" ,"Frequent cigarette use", "Ever cigarette use","Current cigarette, cigar, or smokeless tobacco use","Current cigarette use" , "Current cigarette or cigar use", "Current tobacco use") ~ "Ciggarette Use", 
+         ShortQuestionText %in% c("Smoked >10 cigarettes" ,"Frequent cigarette use", "Ever cigarette use","Current cigarette, cigar, or smokeless tobacco use","Current cigarette use" , "Current cigarette or cigar use", "Current tobacco use") ~ "Cigarette Use", 
          ShortQuestionText %in% c("Frequent cigar use","Current cigar use")~ "Cigar Use",
            TRUE ~ ShortQuestionText)) %>%
   mutate(Grade = fct_relevel(Grade, "9th")) %>%
@@ -48,7 +46,7 @@ tobacco_data %>%
     fill = "Grade") +
   scale_fill_viridis_d() 
 
-tobacco_data$summarised_group <-  fct_relevel(tobacco_data$summarised_group, c("Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use", "Daily Nicotine Use")) %>%
+tobacco_data$summarised_group <-  reorder(tobacco_data$summarised_group, c("Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use", "Daily Nicotine Use")) %>%
   
 ```
 ```{r}
