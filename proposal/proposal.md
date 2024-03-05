@@ -91,41 +91,118 @@ glimpse(new_youth_risk_df)
     ## $ SexOfSexualContacts     <chr> "Total", "Opposite sex only", "Same sex only",…
 
 ``` r
-Alc_data_frame <- new_youth_risk_df %>%
+Alc_Race_data_frame <- new_youth_risk_df %>%
   filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
   group_by(ShortQuestionText, Race) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0))
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
+   arrange(desc(Greater_Risk_Data_Value))
 ```
 
     ## `summarise()` has grouped output by 'ShortQuestionText'. You can override using
     ## the `.groups` argument.
 
 ``` r
- Alc_data_frame <- Alc_data_frame %>%
+ Alc_Race_data_frame <- Alc_Race_data_frame %>%
  pivot_longer(
     ends_with("Risk_Data_Value"), 
     names_to = "Risk_Data", 
-    values_to = "Risk_Percent") 
+    values_to = "Risk_Percent")  
 ```
 
 ``` r
-Alc_data_frame %>% 
+Alc_Race_data_frame %>% 
   filter(Race != "Native Hawaiian or Other Pacific Islander") %>% 
 ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
-  scale_fill_discrete(name="Questions",
-                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
-                     labels = c("Percentage of students who currently drank alcohol", "Percentage of students who ever drank alcohol", "Percentage of students who had their first drink of alcohol before age 13 years", "Percentage of students who reported that the largest number of drinks they \n had in a row was 10 or more" )) +
-  labs(x = "Race", y = "% answering yes",
-    title = "Questions about teen alcohol use",
+labs(x = "Race", y = "Percentage",
+    title = "Risky behaviors in teen alcohol use",
     subtitle = "By Race",
-    fill = "Severity") 
+    fill = "Severity") +
+  scale_fill_viridis_d(name="Questions",
+                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
+                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
 ```
 
     ## Warning in geom_col(position = "dodge", stat = "identity"): Ignoring unknown
     ## parameters: `stat`
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](proposal_files/figure-gfm/Alc_Race-segmented-bar-graph-1.png)<!-- -->
+
+``` r
+Alc_Grade_data_frame <- new_youth_risk_df %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
+  group_by(ShortQuestionText, Grade) %>%
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) 
+```
+
+    ## `summarise()` has grouped output by 'ShortQuestionText'. You can override using
+    ## the `.groups` argument.
+
+``` r
+ Alc_Grade_data_frame <- Alc_Grade_data_frame %>%
+ pivot_longer(
+    ends_with("Risk_Data_Value"), 
+    names_to = "Risk_Data", 
+    values_to = "Risk_Percent") 
+    # filter(Grade != "Total", Sex != "Total")
+```
+
+``` r
+Alc_Grade_data_frame %>% 
+  filter(Grade != "Native Hawaiian or Other Pacific Islander") %>% 
+ggplot(aes(x= Grade, y = Risk_Percent, fill = ShortQuestionText)) +
+   geom_col(position="dodge", stat="identity") +
+ labs(x = "Grade", y = "Percentage",
+    title = "Risky behaviors in teen alcohol use",
+    subtitle = "By Grade",
+    fill = "Severity") +
+  scale_fill_viridis_d(name="Questions",
+                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
+                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
+```
+
+    ## Warning in geom_col(position = "dodge", stat = "identity"): Ignoring unknown
+    ## parameters: `stat`
+
+![](proposal_files/figure-gfm/Alc_Grade-segmented-bar-graph-1.png)<!-- -->
+
+``` r
+Alc_Sex_data_frame <- new_youth_risk_df %>%
+  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
+  group_by(ShortQuestionText, Sex) %>%
+  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) 
+```
+
+    ## `summarise()` has grouped output by 'ShortQuestionText'. You can override using
+    ## the `.groups` argument.
+
+``` r
+ Alc_Sex_data_frame <- Alc_Sex_data_frame %>%
+ pivot_longer(
+    ends_with("Risk_Data_Value"), 
+    names_to = "Risk_Data", 
+    values_to = "Risk_Percent") 
+    # filter(Grade != "Total", Sex != "Total")
+```
+
+``` r
+Alc_Sex_data_frame %>% 
+  filter(Sex != "Native Hawaiian or Other Pacific Islander") %>% 
+ggplot(aes(x= Sex, y = Risk_Percent, fill = ShortQuestionText)) +
+   geom_col(position="dodge", stat="identity") +
+ labs(x = "Sex", y = "Percentage",
+    title = "Risky behaviors in teen alcohol use",
+    subtitle = "By Sex",
+    fill = "Severity") +
+  scale_fill_viridis_d(name="Questions",
+                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
+                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
+```
+
+    ## Warning in geom_col(position = "dodge", stat = "identity"): Ignoring unknown
+    ## parameters: `stat`
+
+![](proposal_files/figure-gfm/Alc_Sex-segmented-bar-graph-1.png)<!-- -->
 
 ``` r
 # Alc_data_frame %>% 
@@ -139,7 +216,7 @@ ggplot(aes(x= Race, y = Risk_Percent, fill = ShortQuestionText)) +
 
 Are there limitations that could influence your project’s outcomes?
 
-It is highly likely that some students will not feel comfortable
+It is highly likely that some students did not feel comfortable
 answering questions about illegal activity ie. substance use. The data
 set tries to account for this by including a confidence value for each
 row in the data set. The data set also does not specify what high
@@ -201,7 +278,3 @@ at the correlation between the initiation of marijuana use vs current
 marijuana use + demographics (gender, race, and grade). We will most
 likely visualize this in a density plots or a barplot. \>\>\>\>\>\>\>
 d75cc983c464e3381b77908b303770c2203166d1 =======
-
-``` r
-# filter(subtopic)
-```
