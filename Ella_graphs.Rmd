@@ -28,15 +28,27 @@ tobacco_data %>%
 ```
 
 ```{r}
+unique(tobacco_data$ShortQuestionText)
+
 tobacco_data %>%
   filter(Grade != "Total") %>%
   mutate(Grade = as.factor(Grade)) %>%
+  mutate(summarised_group = case_when(ShortQuestionText %in% c("Frequent electronic vapor product use", "Electronic vapor product use",  "Electronic vapor products from store", "Frequent smokeless tobacco use", "Current smokeless tobacco use", "Current electronic vapor product use") ~ "Vaporizer and Smokeless Tobacco Use",
+         ShortQuestionText %in% c("Current daily electronic vapor product use", "Current cigarette, cigar, or smokeless tobacco use", "Current daily cigar use", "Current daily cigarette use", "Current daily smokeless tobacco use") ~ "Daily Nicotine Use", 
+         ShortQuestionText %in% c("Smoked >10 cigarettes" ,"Frequent cigarette use", "Ever cigarette use","Current cigarette, cigar, or smokeless tobacco use","Current cigarette use" , "Current cigarette or cigar use", "Current tobacco use") ~ "Ciggarette Use", 
+         ShortQuestionText %in% c("Frequent cigar use","Current cigar use")~ "Cigar Use",
+           TRUE ~ ShortQuestionText)) %>%
   mutate(Grade = fct_relevel(Grade, "9th")) %>%
-  group_by(Grade, ShortQuestionText) %>%
+  group_by(Grade, summarised_group) %>%
   summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
-  ggplot(aes(y = ShortQuestionText, x = mean, fill = Grade)) +
+  ggplot(aes(y = summarised_group, x = mean, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge") +
-  scale_color_viridis_b()
+  labs(x = "Percentage", y = "Category of Use",
+    title = "Nicotine Use by Grade",
+    fill = "Grade") +
+  scale_fill_viridis_d() 
+
+tobacco_data$summarised_group <-  fct_relevel(tobacco_data$summarised_group, c("Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use", "Daily Nicotine Use")) %>%
   
 ```
 ```{r}
@@ -56,7 +68,11 @@ health_data %>%
   group_by(Grade, ShortQuestionText) %>%
   summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
   ggplot(aes(y = ShortQuestionText, x = mean, fill = Grade)) +
-  geom_col(ledgend = NULL, position = "dodge") 
+  geom_col(ledgend = NULL, position = "dodge") +
+  labs(x = "Percentage", y = "Type of Activity ",
+    title = "Physical Activity by Grade",
+    fill = "Grade") +
+  scale_fill_viridis_d()
 
 ```
 
