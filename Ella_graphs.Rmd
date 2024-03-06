@@ -21,11 +21,12 @@ group_by(ShortQuestionText) %>%
   mutate(Grade = fct_relevel(Grade, "9th")) %>%
   group_by(Grade, summarised_group) %>%
   summarise(Sum = sum(Sample_Size, na.rm = TRUE)) %>%
-  ggplot(aes(y = summarised_group, x = Sum, fill = Grade)) +
+  ggplot(aes(y = (fct_relevel (summarised_group, "Daily Nicotine Use", "Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use")), x = Sum, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge")
 ```
 
-```{r nicotine use by grade, fig.alt = "Bar graph showing nicotine use by type of use and by grade, where Cigarette use is the highest, followed by vaporizer and smokeless tobacco, and finally cigar use. Daily nicotine use actoss all four grades is 5%."}
+```{r nicotine-use-by-grade, fig.alt = "Bar graph showing nicotine use by type of use and by grade, where Cigarette use is the highest, followed by vaporizer and smokeless tobacco, and finally cigar use. The graph shows that use of nicotine products trends upwards as students increase in grade. Daily nicotine use actoss all four grades is 5%."}
+
 unique(tobacco_data$ShortQuestionText)
 
 tobacco_data %>%
@@ -39,25 +40,20 @@ tobacco_data %>%
   mutate(Grade = fct_relevel(Grade, "9th")) %>%
   group_by(Grade, summarised_group) %>%
   summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
-  ggplot(aes(y = summarised_group, x = mean, fill = Grade)) +
+  ggplot(aes(y = (fct_relevel(summarised_group, "Daily Nicotine Use", "Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use")), x = mean, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge") +
   labs(x = "Percentage", y = "Category of Use",
-    title = "Nicotine Use by Grade",
+    title = "Nicotine Use by Grade", scale
     fill = "Grade") +
-  scale_fill_viridis_d() 
+  scale_fill_viridis_d(name="Grade",
+                    breaks=c("12th", "11th", "10th", "9th"))
 
-tobacco_data$summarised_group <-  reorder(tobacco_data$summarised_group, c("Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use", "Daily Nicotine Use")) %>%
-  
+ggsave(filename = "smoking_data.png", height = 8, width = 12)
+
 ```
-```{r}
-health_data <- new_youth_risk_df %>% 
-  # filter(LocationAbbr == "ME") %>% 
-  # select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>% 
-  filter(Topic %in% c("Physical Activity")) %>% 
-  group_by(ShortQuestionText) %>%
-  summarise(count = sum(Sample_Size), Sample_Size, Greater_Risk_Data_Value, Lesser_Risk_Data_Value, Race, SexualIdentity, Topic, Grade)
-  #mutate(total_count = count * Sample_Size)
-```
+
+
+
 ```{r}
 health_data %>%
   filter(Grade != "Total") %>%
@@ -65,16 +61,15 @@ health_data %>%
   mutate(Grade = fct_relevel(Grade, "9th")) %>%
   group_by(Grade, ShortQuestionText) %>%
   summarise(mean = mean(Greater_Risk_Data_Value, na.rm = TRUE)) %>%
-  ggplot(aes(y = ShortQuestionText, x = mean, fill = Grade)) +
+  ggplot(aes(y = fct_relevel (ShortQuestionText, "Television watching", "Computer use", "Daily physical activity",  "Daily PE attendance", "Physical activity >= 5 days", "Physical activity", "PE attendance"), x = mean, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge") +
   labs(x = "Percentage", y = "Type of Activity ",
     title = "Physical Activity by Grade",
     fill = "Grade") +
-  scale_fill_viridis_d()
+  scale_fill_viridis_d (name="Grade",
+                    breaks=c("12th", "11th", "10th", "9th"))
 
-```
-
-```{r}
+ggsave(filename = "health_data.png", height = 10, width = 10)
 
 ```
 
