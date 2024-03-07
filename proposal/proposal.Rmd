@@ -13,9 +13,9 @@ library(readr)
 
 ## 1. Introduction
 
-For our project we are working with a data set called "Youth Risk Behavior Surveillance System," collected by the CDC. This data set looks at demographics, environments, and behaviors in teenagers from 9-12th grade across the country. According to the CDC the intent of this data is to "determine how often unhealthy behaviors occur,assess whether unhealthy behaviors increase, decrease, or stay the same over time,provide data at the national, state, territorial and freely associated state, tribal, and local levels, and provide data comparing different groups of adolescents. The data is collected through surveys given to students at both public and private high schools across the US. 
+For our project we are working with a data set called "Youth Risk Behavior Surveillance System," collected by the CDC. This data set looks at demographics, environments, and behaviors in teenagers from 9-12th grade across the country. According to the CDC the intent of this data is to "determine how often unhealthy behaviors occur, assess whether unhealthy behaviors increase, decrease, or stay the same over time, provide data at the national, state, territorial and freely associated state, tribal, and local levels, and provide data comparing different groups of adolescents. The data is collected through surveys given to students at both public and private high schools across the US." 
 
-Due to the size of the data we are looking at data from Maine only in the years 2015 and 2017. The behaviors (variables) we will be looking at specifically are:
+Due to the size of the dataset, we are looking at data from Maine only in the years 2015 and 2017. The behaviors (variables) we will be looking at specifically are:
 
  [1] "Behaviors that Contribute to Unintentional Injuries"
  [2] "Behaviors that Contribute to Violence"              
@@ -27,7 +27,7 @@ Due to the size of the data we are looking at data from Maine only in the years 
  [9] "Physical Activity"                                  
 
 
-There are several questions we are interested in exploring through this data:
+An overarching question we want to explore is the risk behaviors in high school students in Maine. There are several questions we are interested in exploring through this data:
 
 1. What is the relationship between tobacco use and physical activity? 
 2. Are certain demographics of students more likely to engage in risky behaviors?
@@ -53,99 +53,6 @@ new_youth_risk_df <- youth_risk %>%
 
 ```{r glimpse-new_youth_risk_df}
 glimpse(new_youth_risk_df)
-```
-
-```{r Alc_Race_data_frame}
-Alc_Race_data_frame <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
-  group_by(ShortQuestionText, Race) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) %>%
-   arrange(desc(Greater_Risk_Data_Value))
- Alc_Race_data_frame <- Alc_Race_data_frame %>%
- pivot_longer(
-    ends_with("Risk_Data_Value"), 
-    names_to = "Risk_Data", 
-    values_to = "Risk_Percent")  
-```
-
-```{r Alc_Race-segmented-bar-graph}
-Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("White", "Hispanic or Latino", "Multiple Race", "American Indian or Alaska Native", "Asian", "Black or African American", "Total"))
-
-Alc_Race_data_frame %>% 
-  filter(Race != "Native Hawaiian or Other Pacific Islander") %>%
-  #mutate(Race = fct_relevel(Race, "White")) %>%
-ggplot(aes(y= Race, x = Risk_Percent, fill = ShortQuestionText)) +
-   geom_col(position="dodge", stat="identity") +
-labs(y = "Race", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Race",
-    fill = "Severity") +
-  scale_fill_viridis_d(name="Questions",
-                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
-                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
-```
-
-```{r Alc_Grade_data_frame}
-Alc_Grade_data_frame <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
-  group_by(ShortQuestionText, Grade) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) 
-
- Alc_Grade_data_frame <- Alc_Grade_data_frame %>%
- pivot_longer(
-    ends_with("Risk_Data_Value"), 
-    names_to = "Risk_Data", 
-    values_to = "Risk_Percent") 
-    # filter(Grade != "Total", Sex != "Total")
-```
-
-```{r Alc_Grade-segmented-bar-graph}
-Alc_Grade_data_frame %>% 
-  filter(Grade != "Native Hawaiian or Other Pacific Islander") %>% 
-ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
-   geom_col(position="dodge", stat="identity") +
- labs(y = "Grade", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Grade",
-    fill = "Severity") +
-  scale_fill_viridis_d(name="Questions",
-                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
-                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
-```
-```{r Sex_Race_data_frame}
-Alc_Sex_data_frame <- new_youth_risk_df %>%
-  filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
-  group_by(ShortQuestionText, Sex) %>%
-  summarise(Greater_Risk_Data_Value = round(mean(Greater_Risk_Data_Value, na.rm =TRUE), digits = 0)) 
-
- Alc_Sex_data_frame <- Alc_Sex_data_frame %>%
- pivot_longer(
-    ends_with("Risk_Data_Value"), 
-    names_to = "Risk_Data", 
-    values_to = "Risk_Percent") 
-    # filter(Grade != "Total", Sex != "Total")
-```
-
-```{r Alc_Sex-segmented-bar-graph}
-Alc_Sex_data_frame %>% 
-  filter(Sex != "Native Hawaiian or Other Pacific Islander") %>% 
-ggplot(aes(y= Sex, x = Risk_Percent, fill = ShortQuestionText)) +
-   geom_col(position="dodge", stat="identity") +
- labs(y = "Sex", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Sex",
-    fill = "Severity") +
-  scale_fill_viridis_d(name="Questions",
-                    breaks=c("Current alcohol use", "Ever alcohol use", "Initiation of alcohol use", "Largest number of drinks"),
-                     labels = c("Students who currently drink alcohol", "Students who ever drank alcohol", "Students who had their first drink of \nalcohol before age 13 years", "Students who reported that the largest \nnumber of drinks they had in a row was 10 or more" ))
-```
-
-```{r old-atempts}
-# Alc_data_frame %>% 
-#   ggplot(aes(x= ShortQuestionText, y = Risk_Percent, fill = Race))+
-#   geom_col(position = "dodge") +
-#   facet_wrap(~Risk_Data) +
-#   scale_fill_brewer(palette = "RdPu")
 ```
 
 ## 3. Ethics review
@@ -178,8 +85,7 @@ Then we will look at the correlation between tobacco use and physical activity a
 Then we will look at tobacco use vs drug/alcohol use. We will most likely visualize this in a barplot.
 Then we will look at the correlation between the initiation of alcohol use compared to current alcohol use + demographics (gender, race, and grade). We will most likely visualize this in a density plots or a barplot.
 Then we will look at the correlation between the initiation of marijuana use vs current marijuana use + demographics (gender, race, and grade). We will most likely visualize this in a density plots or a barplot.
->>>>>>> d75cc983c464e3381b77908b303770c2203166d1
-=======
+
 
 ```{r}
 ```

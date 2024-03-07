@@ -43,7 +43,7 @@ tobacco_data %>%
   ggplot(aes(y = (fct_relevel(summarised_group, "Daily Nicotine Use", "Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use")), x = mean, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge") +
   labs(x = "Percentage", y = "Category of Use",
-    title = "Nicotine Use by Grade", scale
+    title = "Nicotine Use by Grade", "scale",
     fill = "Grade") +
   scale_fill_viridis_d(name="Grade",
                     breaks=c("12th", "11th", "10th", "9th"))
