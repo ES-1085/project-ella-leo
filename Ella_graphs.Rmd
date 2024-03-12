@@ -43,10 +43,11 @@ tobacco_data %>%
   ggplot(aes(y = (fct_relevel(summarised_group, "Daily Nicotine Use", "Cigar Use", "Vaporizer and Smokeless Tobacco Use", "Cigarette Use")), x = mean, fill = Grade)) +
   geom_col(ledgend = NULL, position = "dodge") +
   labs(x = "Percentage", y = "Category of Use",
-    title = "Nicotine Use by Grade", scale
+    title = "Nicotine Use by Grade", 
     fill = "Grade") +
   scale_fill_viridis_d(name="Grade",
-                    breaks=c("12th", "11th", "10th", "9th"))
+                    breaks=c("12th", "11th", "10th", "9th")) +
+  theme(plot.title = element_text(size = 30))
 
 ggsave(filename = "smoking_data.png", height = 8, width = 12)
 
@@ -54,7 +55,7 @@ ggsave(filename = "smoking_data.png", height = 8, width = 12)
 
 
 
-```{r}
+```{r physical_activity_grade, fig.alt = "Bar graph showing physical activity by type of activity and by grade. The graph shows that shows that roughly 80% of students engage in daily physical activity, and that 12th graders tend to be mnore active then 9th graders."}
 health_data %>%
   filter(Grade != "Total") %>%
   mutate(Grade = as.factor(Grade)) %>%
@@ -67,9 +68,10 @@ health_data %>%
     title = "Physical Activity by Grade",
     fill = "Grade") +
   scale_fill_viridis_d (name="Grade",
-                    breaks=c("12th", "11th", "10th", "9th"))
+                    breaks=c("12th", "11th", "10th", "9th")) +
+  theme(plot.title = element_text(size = 30)) 
 
-ggsave(filename = "health_data.png", height = 10, width = 10)
+ggsave(filename = "health_data.png", height = 8, width = 12)
 
 ```
 
