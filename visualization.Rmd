@@ -11,8 +11,7 @@ library(readr)
 ```
 
 ```{r load-data}
-youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240207.csv")
-# View(youth_risk)
+youth_risk <- read_csv("data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240207.csv")
 
 ```
 
@@ -45,12 +44,13 @@ Alc_Race_data_frame %>%
 ggplot(aes(y= Race, x = Sample_Size, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
 labs(y = "Race", x = "Sample Size",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Sample size of Race",
+    title = "Risky Behaviors in Teen Alcohol Use",
+    subtitle = "By Sample Size of Race",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))+
+  theme(legend.text=element_text(size=12))
 
 ggsave(filename = "Alc_Race_sample_size.png", height = 8, width = 12)
 ```
@@ -64,12 +64,13 @@ Alc_Race_data_frame %>%
 ggplot(aes(y= Race, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
 labs(y = "Race", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
+    title = "Risky Behaviors in Teen Alcohol Use",
     subtitle = "By Race",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol")) +
+  theme(legend.text=element_text(size=12))
 
 ggsave(filename = "Alc_Race.png", height = 8, width = 12)
 ```
@@ -95,12 +96,13 @@ Alc_Grade_data_frame %>%
 ggplot(aes(y= Grade, x = Sample_Size, fill = ShortQuestionText)) +
    geom_col(position= "dodge", stat= "identity") +
 labs(y = "Grade", x = "Sample Size",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Sample size of Grade",
+    title = "Risky Behaviors in Teen Alcohol Use",
+    subtitle = "By Sample Size of Grade",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))+
+  theme(legend.text=element_text(size=12))
 
  ggsave(filename = "Alc_Grade_sample_size.png", height = 8, width = 12)
 
@@ -115,12 +117,13 @@ Alc_Grade_data_frame %>%
 ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
  labs(y = "Grade", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
+    title = "Risky Behaviors in Teen Alcohol Use",
     subtitle = "By Grade",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))+
+  theme(legend.text=element_text(size=12))
 
  ggsave(filename = "Alc_Grade.png", height = 8, width = 12)
 
@@ -146,12 +149,13 @@ Alc_Sex_data_frame %>%
 ggplot(aes(y= Sex, x = Sample_Size, fill = ShortQuestionText)) +
    geom_col(position= "dodge", stat= "identity") +
 labs(y = "Sex", x = "Sample Size",
-    title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Sample size of Sex",
+    title = "Risky Behaviors in Teen Alcohol Use",
+    subtitle = "By Sample Size of Sex",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))+
+  theme(legend.text=element_text(size=12))
 
  ggsave(filename = "Alc_Sex_sample_size.png", height = 8, width = 12)
 
@@ -164,12 +168,13 @@ Alc_Sex_data_frame %>%
 ggplot(aes(y= Sex, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
  labs(y = "Sex", x = "Percentage",
-    title = "Risky behaviors in teen alcohol use",
+    title = "Risky Behaviors in Teen Alcohol Use",
     subtitle = "By Sex",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
-                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+                     labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))+
+  theme(legend.text=element_text(size=12))
 
  ggsave(filename = "Alc_Sex.png", height = 8, width = 12)
 
