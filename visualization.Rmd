@@ -51,6 +51,8 @@ labs(y = "Race", x = "Sample Size",
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ggsave(filename = "Alc_Race_sample_size.png", height = 8, width = 12)
 ```
 
 ```{r Alc-Race-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Race and Percentage engaging in risky behavoirs. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, and White. Over half of all students except for Asian and Black or African American stunts have ever drunk alcohol. Binge drinking (Students who reported that the largest number of drinks they had in a row was 10 or more) is most common in Latino students and not represented in Asian students, between 10-23% of students had their first drink of alcohol before the age of 13, and between 7-29% of students currently drink alcohol."}
@@ -68,6 +70,8 @@ labs(y = "Race", x = "Percentage",
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ggsave(filename = "Alc_Race.png", height = 8, width = 12)
 ```
 
 ```{r Alc_Grade_data_frame}
@@ -97,6 +101,9 @@ labs(y = "Grade", x = "Sample Size",
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ ggsave(filename = "Alc_Grade_sample_size.png", height = 8, width = 12)
+
 ```
 
 ```{r Alc_Grade-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Grade and Percentage engaging in risky behaviors. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the grades counted are 9th, 10th, 11th, and 12th. The percentage of students engaging in risky behavior increased with each grade."}
@@ -114,6 +121,9 @@ ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ ggsave(filename = "Alc_Grade.png", height = 8, width = 12)
+
 ```
 ```{r Sex_Race_data_frame}
 Alc_Sex_data_frame <- new_youth_risk_df %>%
@@ -137,11 +147,14 @@ ggplot(aes(y= Sex, x = Sample_Size, fill = ShortQuestionText)) +
    geom_col(position= "dodge", stat= "identity") +
 labs(y = "Sex", x = "Sample Size",
     title = "Risky behaviors in teen alcohol use",
-    subtitle = "By Sample size of Grade",
+    subtitle = "By Sample size of Sex",
     fill = "Severity") +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ ggsave(filename = "Alc_Sex_sample_size.png", height = 8, width = 12)
+
 ```
 
 ```{r Alc_Sex-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Sex and Percentage engaging in risky behaviors. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the sexes counted are male and female. The percentage of female students engaging in risky behavior is higher than males students."}
@@ -157,6 +170,9 @@ ggplot(aes(y= Sex, x = Risk_Percent, fill = ShortQuestionText)) +
   scale_fill_viridis_d(name="Questions",
                      breaks=c("Largest number of drinks", "Initiation of alcohol use", "Ever alcohol use", "Current alcohol use"),
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
+
+ ggsave(filename = "Alc_Sex.png", height = 8, width = 12)
+
 ```
 
 ```{r old-atempts}
