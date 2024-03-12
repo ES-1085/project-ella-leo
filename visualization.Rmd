@@ -10,6 +10,18 @@ library(broom)
 library(readr)
 ```
 
+```{r load-data}
+youth_risk <- read_csv("../data/DASH_-_Youth_Risk_Behavior_Surveillance_System__YRBSS___High_School____Including_Sexual_Orientation_20240207.csv")
+# View(youth_risk)
+
+```
+
+```{r load-new_youth_risk_df}
+new_youth_risk_df <- youth_risk %>% 
+  select("YEAR", "Topic", "Subtopic", "ShortQuestionText", "Greater_Risk_Data_Value", "Lesser_Risk_Data_Value", "Sample_Size", "Sex", "Race", "Grade", "SexualIdentity", "SexOfSexualContacts") %>%
+  filter(YEAR == 2017)
+```
+
 ```{r Alc_Race_data_frame}
 Alc_Race_data_frame <- new_youth_risk_df %>%
   filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
@@ -26,12 +38,12 @@ Alc_Race_data_frame <- new_youth_risk_df %>%
     values_to = "Risk_Percent")  
 ```
 
-```{r Alc-Race-sample-size-segmented-bar-graph}
-Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("Native Hawaiian or Other Pacific Islander", "Black or African American", "Asian","American Indian or Alaska Native", "Multiple Race", "Hispanic or Latino", "White", "Total"))
+```{r Alc-Race-sample-size-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by sample size of race. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, White, and the total of all races. White students comprise the majority of this data at about 80% of the sample size with 6765-7015 respondents per question, and is massively underrepresented with only 17-19 respondents per question."}
+Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("Native Hawaiian or Other Pacific Islander", "Black or African American", "Asian","American Indian or Alaska Native", "Multiple Race", "Hispanic or Latino", "White", "Total")) 
 
 Alc_Race_data_frame %>% 
 ggplot(aes(y= Race, x = Sample_Size, fill = ShortQuestionText)) +
-   geom_col(position="stack", stat="identity") +
+   geom_col(position="dodge", stat="identity") +
 labs(y = "Race", x = "Sample Size",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Sample size of Race",
@@ -41,11 +53,12 @@ labs(y = "Race", x = "Sample Size",
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
 ```
 
-```{r Alc-Race-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Race and Percentage engaging in risky behavoirs. The questions being asked are students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, White, and Total of all races."}
+```{r Alc-Race-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Race and Percentage engaging in risky behavoirs. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, and White. Over half of all students except for Asian and Black or African American stunts have ever drunk alcohol. Binge drinking (Students who reported that the largest number of drinks they had in a row was 10 or more) is most common in Latino students and not represented in Asian students, between 10-23% of students had their first drink of alcohol before the age of 13, and between 7-29% of students currently drink alcohol."}
 Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("Black or African American", "Asian", "American Indian or Alaska Native", "Multiple Race", "Hispanic or Latino", "White", "Total"))
 
 Alc_Race_data_frame %>% 
   filter(Race != "Native Hawaiian or Other Pacific Islander") %>%
+  filter(Race != "Total") %>%
 ggplot(aes(y= Race, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
 labs(y = "Race", x = "Percentage",
@@ -71,12 +84,12 @@ Alc_Grade_data_frame <- new_youth_risk_df %>%
     values_to = "Risk_Percent") 
     # filter(Grade != "Total", Sex != "Total")
 ```
-```{r Alc-Grade-sample-size-segmented-bar-graph}
+```{r Alc-Grade-sample-size-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by sample size of Grade. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the grades counted are 9th, 10th, 11th, 12th, and the total of all grades. The number of respondents goes up slightly as the grades increase."}
 Alc_Grade_data_frame$Grade <-  fct_relevel(Alc_Grade_data_frame$Grade,  c("9th", "10th", "11th", "12th", "Total"))
 
 Alc_Grade_data_frame %>% 
 ggplot(aes(y= Grade, x = Sample_Size, fill = ShortQuestionText)) +
-   geom_col(position= "stack", stat= "identity") +
+   geom_col(position= "dodge", stat= "identity") +
 labs(y = "Grade", x = "Sample Size",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Sample size of Grade",
@@ -86,11 +99,12 @@ labs(y = "Grade", x = "Sample Size",
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
 ```
 
-```{r Alc_Grade-segmented-bar-graph}
+```{r Alc_Grade-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Grade and Percentage engaging in risky behaviors. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the grades counted are 9th, 10th, 11th, and 12th. The percentage of students engaging in risky behavior increased with each grade."}
 Alc_Grade_data_frame$Grade <-  fct_relevel(Alc_Grade_data_frame$Grade, c("9th", "10th", "11th", "12th", "Total"))
 
 Alc_Grade_data_frame %>% 
-  filter(Grade != "Native Hawaiian or Other Pacific Islander") %>% 
+  filter(Grade != "Native Hawaiian or Other Pacific Islander") %>%
+  filter(Grade != "Total") %>%
 ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
  labs(y = "Grade", x = "Percentage",
@@ -115,12 +129,12 @@ Alc_Sex_data_frame <- new_youth_risk_df %>%
     values_to = "Risk_Percent") 
     # filter(Grade != "Total", Sex != "Total")
 ```
-```{r Alc-Sex-sample-size-segmented-bar-graph}
+```{r Alc-Sex-sample-size-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by sample size of sex. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the sexes counted are male, female, and the total of the sexes. The sample size of females is slighly higher than that of males."}
 Alc_Sex_data_frame$Sex <-  fct_relevel(Alc_Sex_data_frame$Sex, c("Female","Male", "Total"))
 
 Alc_Sex_data_frame %>% 
 ggplot(aes(y= Sex, x = Sample_Size, fill = ShortQuestionText)) +
-   geom_col(position= "stack", stat= "identity") +
+   geom_col(position= "dodge", stat= "identity") +
 labs(y = "Sex", x = "Sample Size",
     title = "Risky behaviors in teen alcohol use",
     subtitle = "By Sample size of Grade",
@@ -130,9 +144,10 @@ labs(y = "Sex", x = "Sample Size",
                      labels = c("Students who reported that the largest \nnumber of drinks they had in a row was 10 or more", "Students who had their first drink of \nalcohol before age 13 years", "Students who ever drank alcohol", "Students who currently drink alcohol"))
 ```
 
-```{r Alc_Sex-segmented-bar-graph}
+```{r Alc_Sex-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Sex and Percentage engaging in risky behaviors. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the sexes counted are male and female. The percentage of female students engaging in risky behavior is higher than males students."}
 Alc_Sex_data_frame %>% 
-  filter(Sex != "Native Hawaiian or Other Pacific Islander") %>% 
+  filter(Sex != "Native Hawaiian or Other Pacific Islander") %>%
+  filter(Sex != "Total") %>%
 ggplot(aes(y= Sex, x = Risk_Percent, fill = ShortQuestionText)) +
    geom_col(position="dodge", stat="identity") +
  labs(y = "Sex", x = "Percentage",
