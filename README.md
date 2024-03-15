@@ -24,7 +24,7 @@ Our analysis was limited by the challenges of working with our specific data set
 
 For future work we would like to incorporate other data and variables into our analysis. We would also like to look at locations other than Maine, to get a greater diversity in the respondents. With more time we would also explore visualizations other than bar plots. 
 
-wehto
+
 
 ## Presentation
 
