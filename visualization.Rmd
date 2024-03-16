@@ -37,7 +37,7 @@ Alc_Race_data_frame <- new_youth_risk_df %>%
     values_to = "Risk_Percent")  
 ```
 
-```{r Alc-Race-sample-size-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by sample size of race. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, White, and the total of all races. White students comprise the majority of this data at about 80% of the sample size with 6765-7015 respondents per question, and is massively underrepresented with only 17-19 respondents per question."}
+```{r Alc-Race-sample-size-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by sample size of race. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Native Hawaiian or Other Pacific Islander, Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, White, and the total of all races. White students comprise the majority of this data at about 80% of the sample size with 6765-7015 respondents per question, and Native Hawaiian or Other Pacific Islanders are massively underrepresented with only 17-19 respondents per question."}
 Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("Native Hawaiian or Other Pacific Islander", "Black or African American", "Asian","American Indian or Alaska Native", "Multiple Race", "Hispanic or Latino", "White", "Total")) 
 
 Alc_Race_data_frame %>% 
@@ -55,7 +55,7 @@ labs(y = "Race", x = "Sample Size",
 ggsave(filename = "Alc_Race_sample_size.png", height = 8, width = 12)
 ```
 
-```{r Alc-Race-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Race and Percentage engaging in risky behavoirs. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, and White. Over half of all students except for Asian and Black or African American stunts have ever drunk alcohol. Binge drinking (Students who reported that the largest number of drinks they had in a row was 10 or more) is most common in Latino students and not represented in Asian students, between 10-23% of students had their first drink of alcohol before the age of 13, and between 7-29% of students currently drink alcohol."}
+```{r Alc-Race-segmented-bar-graph, fig.alt = "Bar chart of Risky behaviors in teen alcohol use by Race and Percentage engaging in risky behavoirs. The questions being asked are: students who reported that the largest number of drinks they had in a row was 10 or more, students who had their first drink of alcohol before age 13 years, students who ever drank alcohol, students who currently drink alcohol, and the races counted are Black or African American, Asian, American Indian or Alaska Native, Multiple Race, Hispanic or Latino, and White. Over half of all students except for Asian and Black or African American students have ever drunk alcohol. Binge drinking (Students who reported that the largest number of drinks they had in a row was 10 or more) is most common in Latino students and not represented in Asian students, between 10-23% of students had their first drink of alcohol before the age of 13, and between 7-29% of students currently drink alcohol."}
 Alc_Race_data_frame$Race <-  fct_relevel(Alc_Race_data_frame$Race, c("Black or African American", "Asian", "American Indian or Alaska Native", "Multiple Race", "Hispanic or Latino", "White", "Total"))
 
 Alc_Race_data_frame %>% 
@@ -128,7 +128,7 @@ ggplot(aes(y= Grade, x = Risk_Percent, fill = ShortQuestionText)) +
  ggsave(filename = "Alc_Grade.png", height = 8, width = 12)
 
 ```
-```{r Sex_Race_data_frame}
+```{r Alc_Sex_data_frame}
 Alc_Sex_data_frame <- new_youth_risk_df %>%
   filter(ShortQuestionText %in% c("Initiation of alcohol use", "Ever alcohol use", "Current alcohol use", "Largest number of drinks")) %>%
   group_by(ShortQuestionText, Sex) %>%
